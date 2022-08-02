@@ -3,9 +3,9 @@
     (:requirements :typing)
     (:types 
         clothing person - object
-        sweatshirt sweatpants collared-shirt suit-jacket nice-pants - clothing
+        sweatshirt sweatpants collared-shirt suit-jacket nice-pants dress - clothing
     )
-; assume the person is wearing a tshirt and underwear.
+; assume the person is wearing their underclothing of choice.
     (:predicates 
         (in-closet ?c - clothing)
         (wearing-collared-shirt ?p - person)
@@ -13,61 +13,73 @@
         (wearing-nice-pants ?p - person)
         (wearing-sweatshirt ?p - person)
         (wearing-sweatpants ?p - person)
+        (wearing-dress ?p - person)
         (not-wearing-collared-shirt ?p - person)
         (not-wearing-suit-jacket ?p - person)
         (not-wearing-nice-pants ?p - person)
         (not-wearing-sweatshirt ?p - person)
         (not-wearing-sweatpants ?p - person)
+        (not-wearing-dress ?p - person)
         (attending-casual-event ?p - person)
         (attending-formal-event ?p - person)
+        (is-man ?p - person)
+        (is-woman ?p - person)
+        (wearing-nothing-formal ?p - person)
+        (wearing-nothing-casual ?p - person)
+    )
+
+    (:action put-on-dress
+        :parameters (?p - person ?d - dress)
+        :precondition (and (in-closet ?d))
+        :effect (and (not (in-closet ?d))
+                     (wearing-dress ?p)
+                     (not (wearing-nothing-formal ?p)))
     )
 
     (:action put-on-sweatshirt
         :parameters (?p - person ?s - sweatshirt)
-        :precondition (and (in-closet ?s) 
-                           (not-wearing-sweatshirt ?p))
+        :precondition (and (in-closet ?s))
         :effect (and (not (in-closet ?s))
-                     (wearing-sweatshirt ?p))
+                     (wearing-sweatshirt ?p)
+                     (not (wearing-nothing-casual ?p)))
     )
 
     (:action put-on-collared-shirt
         :parameters (?p - person ?cs - collared-shirt)
-        :precondition (and (in-closet ?cs) 
-                           (not-wearing-collared-shirt ?p))
+        :precondition (and (in-closet ?cs))
         :effect (and (not (in-closet ?cs))
-                     (wearing-collared-shirt ?p))
+                     (wearing-collared-shirt ?p)
+                     (not (wearing-nothing-formal ?p)))
     )
 
     (:action put-on-suit-jacket
         :parameters (?p - person ?sj - suit-jacket)
         :precondition (and (in-closet ?sj) 
-                           (wearing-collared-shirt ?p)
-                           (not-wearing-suit-jacket ?p))
+                           (wearing-collared-shirt ?p))
         :effect (and (not (in-closet ?sj))
-                     (wearing-suit-jacket ?p))
+                     (wearing-suit-jacket ?p)
+                     (not (wearing-nothing-formal ?p)))
     )
 
     (:action put-on-sweatpants
         :parameters (?p - person ?s - sweatpants)
-        :precondition (and (in-closet ?s)
-                           (not-wearing-sweatpants ?p))
+        :precondition (and (in-closet ?s))
         :effect (and (not (in-closet ?s))
-                     (wearing-sweatpants ?p))
+                     (wearing-sweatpants ?p)
+                     (not (wearing-nothing-casual ?p)))
     )
 
     (:action put-on-nice-pants
-        :parameters (?p - person ?s - nice-pants)
-        :precondition (and (in-closet ?s)
-                           (not-wearing-nice-pants ?p))
-        :effect (and (not (in-closet ?s))
-                     (wearing-nice-pants ?p))
+        :parameters (?p - person ?np - nice-pants)
+        :precondition (and (in-closet ?np))
+        :effect (and (not (in-closet ?np))
+                     (wearing-nice-pants ?p)
+                     (not (wearing-nothing-formal ?p)))
     )
 
     (:action attend-casual-event
         :parameters (?p - person)
-        :precondition (and (not-wearing-collared-shirt ?p)
-                           (not-wearing-suit-jacket ?p)
-                           (not-wearing-nice-pants ?p)
+        :precondition (and (wearing-nothing-formal ?p)
                            (wearing-sweatshirt ?p)
                            (wearing-sweatpants ?p))
         :effect (and (attending-casual-event ?p))
@@ -75,11 +87,9 @@
 
     (:action attend-formal-event
         :parameters (?p - person)
-        :precondition (and (wearing-collared-shirt ?p)
-                           (wearing-suit-jacket ?p)
-                           (wearing-nice-pants ?p)
-                           (not-wearing-sweatshirt ?p)
-                           (not-wearing-sweatpants ?p))
+        :precondition (and (wearing-nothing-casual ?p)
+                           (or (and (is-man ?p) (wearing-collared-shirt ?p) (wearing-suit-jacket ?p) (wearing-nice-pants ?p))
+                               (and (is-woman ?p) (wearing-dress ?p))))
         :effect (and (attending-formal-event ?p))
     )
 )

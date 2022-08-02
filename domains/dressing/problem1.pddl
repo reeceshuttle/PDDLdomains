@@ -5,6 +5,7 @@
               suit-jacket1 - suit-jacket
               sweatpants1 - sweatpants
               sweatshirt1 - sweatshirt
+              dress1 - dress
               person1 - person
     )
     (:init
@@ -13,11 +14,10 @@
         (in-closet suit-jacket1)
         (in-closet sweatpants1)
         (in-closet sweatshirt1)
-        (not-wearing-collared-shirt person1)
-        (not-wearing-suit-jacket person1)
-        (not-wearing-nice-pants person1)
-        (not-wearing-sweatshirt person1)
-        (not-wearing-sweatpants person1)
+        (in-closet dress1)
+        (wearing-nothing-casual person1)
+        (wearing-nothing-formal person1)
+        (is-man person1)
     )
     (:goal (and (attending-formal-event person1)))
 )
