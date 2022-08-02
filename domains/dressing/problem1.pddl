@@ -1,23 +1,23 @@
 (define (problem dressed)
     (:domain dressed)
-    (:objects nice_pants1 - nice_pants
-              collared_shirt1 - collared_shirt
-              suit_jacket1 - suit_jacket
+    (:objects nice-pants1 - nice-pants
+              collared-shirt1 - collared-shirt
+              suit-jacket1 - suit-jacket
               sweatpants1 - sweatpants
               sweatshirt1 - sweatshirt
               person1 - person
     )
     (:init
-        (in_closet nice_pants1)
-        (in_closet collared_shirt1)
-        (in_closet suit_jacket1)
-        (in_closet sweatpants1)
-        (in_closet sweatshirt1)
-        (not_wearing_collared_shirt person1)
-        (not_wearing_suit_jacket person1)
-        (not_wearing_nice_pants person1)
-        (not_wearing_sweatshirt person1)
-        (not_wearing_sweatpants person1)
+        (in-closet nice-pants1)
+        (in-closet collared-shirt1)
+        (in-closet suit-jacket1)
+        (in-closet sweatpants1)
+        (in-closet sweatshirt1)
+        (not-wearing-collared-shirt person1)
+        (not-wearing-suit-jacket person1)
+        (not-wearing-nice-pants person1)
+        (not-wearing-sweatshirt person1)
+        (not-wearing-sweatpants person1)
     )
-    (:goal (and (attending_formal_event person1)))
+    (:goal (and (attending-formal-event person1)))
 )
