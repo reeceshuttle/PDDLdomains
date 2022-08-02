@@ -1,0 +1,4 @@
+(put-on-collared-shirt person1 collared-shirt1)
+(put-on-suit-jacket person1 suit-jacket1)
+(put-on-nice-pants person1 nice-pants1)
+(attend-formal-event-in-suit person1)
