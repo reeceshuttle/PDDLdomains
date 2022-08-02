@@ -1,5 +1,5 @@
 (define 
-    (domain omlette)
+    (domain omelette)
     (:requirements :typing)
     (:types 
         food person - object
