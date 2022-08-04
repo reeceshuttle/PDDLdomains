@@ -1,10 +1,13 @@
-with open('domains/dressing/domain.pddl', 'r') as f:
-    domain_file = f.read()
+# with open('domains/dressing/domain.pddl', 'r') as f:
+#     domain_file = f.read()
 
-
-
-
-
+def _generate_dressing_problems(min_people: int, max_people: int,
+                                min_casual: int, max_casual: int,
+                                min_formal_dress: int, max_formal_dress: int,
+                                min_formal_suit: int, max_formal_suit: int,
+                                min_extra_clothes: int, max_extra_clothes: int) -> str:
+    import pdb; pdb.set_trace()
+    raise NotImplementedError
 
 def _generate_dressing_problem(num_people: int, num_casual_events: int, 
                                num_formal_in_dress: int, num_formal_in_suit: int, 
@@ -43,10 +46,7 @@ def _generate_dressing_problem(num_people: int, num_casual_events: int,
                                          + num_formal_in_dress
                                          + num_formal_in_suit)):
         goals += f'(attending-formal-event person{i})\n                    '
-
-
-    # person_str = ' '.join(persons) 
-    
+    #making problem:    
     problem_string = f"""
     (define (problem dressed)
         (:domain dressed)
@@ -55,11 +55,10 @@ def _generate_dressing_problem(num_people: int, num_casual_events: int,
         (:goal (and {goals}))
     )
     """
-    import pdb; pdb.set_trace()
     return problem_string
 
 
 
 if __name__ == "__main__":
-    print('this works')
-    _generate_dressing_problem(10, 4, 3, 2, 1)
+    example_problem = _generate_dressing_problem(10, 4, 3, 2, 1)
+    print(example_problem)
